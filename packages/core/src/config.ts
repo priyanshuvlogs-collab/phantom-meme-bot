@@ -52,6 +52,7 @@ const envSchema = z.object({
   SAFETY_MAX_TOP10_HOLDER_PCT: z.coerce.number().positive().max(100).default(40),
   SAFETY_REQUIRE_MINT_AUTHORITY_REVOKED: booleanString,
   SAFETY_REQUIRE_FREEZE_AUTHORITY_REVOKED: booleanString,
+  SAFETY_ALLOW_UNVERIFIED_TOP_HOLDERS: booleanString,
 
   PRICE_POLL_INTERVAL_MS: z.coerce.number().int().min(1000).default(5000),
   STRATEGY_TICK_INTERVAL_MS: z.coerce.number().int().min(1000).default(10000),

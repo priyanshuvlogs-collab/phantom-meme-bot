@@ -111,12 +111,18 @@ export async function checkTokenSafety(mintAddress: string): Promise<SafetyRepor
         "Includes liquidity-pool vaults, so healthy tokens often show 20–40% here. Treat very high values as a red flag.",
     });
   } catch (err) {
+    // The public mainnet RPC blocks getTokenLargestAccounts. Fail closed by
+    // default; SAFETY_ALLOW_UNVERIFIED_TOP_HOLDERS=true lets paper-mode users
+    // on the public RPC proceed without this one check.
     checks.push({
       id: "top_holders",
       label: "Top-10 holder concentration",
-      passed: false,
+      passed: config.SAFETY_ALLOW_UNVERIFIED_TOP_HOLDERS,
       value: "unavailable",
-      detail: `Could not fetch largest accounts: ${String(err)}`,
+      detail:
+        `Could not fetch largest accounts (${String(err)}). ` +
+        "Public RPCs block this call — use a dedicated RPC provider, or set " +
+        "SAFETY_ALLOW_UNVERIFIED_TOP_HOLDERS=true to skip only this check.",
     });
   }
 
