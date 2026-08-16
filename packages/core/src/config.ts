@@ -8,9 +8,23 @@ import { z } from "zod";
  * any workspace package (apps/cli, apps/web, repo root, ...).
  */
 export function findEnvFile(startDir = process.cwd()): string | undefined {
+  return findUp(".env", startDir);
+}
+
+/**
+ * Anchor for relative paths (DATABASE_PATH, keypair path) when no .env
+ * exists: the monorepo root, so CLI, engine and dashboard share one database
+ * regardless of which directory they were started from.
+ */
+export function findWorkspaceRoot(startDir = process.cwd()): string | undefined {
+  const marker = findUp("pnpm-workspace.yaml", startDir);
+  return marker ? path.dirname(marker) : undefined;
+}
+
+function findUp(fileName: string, startDir: string): string | undefined {
   let dir = startDir;
-  for (let i = 0; i < 6; i++) {
-    const candidate = path.join(dir, ".env");
+  for (let i = 0; i < 8; i++) {
+    const candidate = path.join(dir, fileName);
     if (fs.existsSync(candidate)) return candidate;
     const parent = path.dirname(dir);
     if (parent === dir) break;
@@ -86,7 +100,7 @@ export function loadConfig(): BotConfig {
   }
 
   const env = parsed.data;
-  const rootDir = envFile ? path.dirname(envFile) : process.cwd();
+  const rootDir = envFile ? path.dirname(envFile) : (findWorkspaceRoot() ?? process.cwd());
 
   if (env.TRADING_MODE === "live" && !env.LIVE_TRADING_ACKNOWLEDGED) {
     throw new Error(

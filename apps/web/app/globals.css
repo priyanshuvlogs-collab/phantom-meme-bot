@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0b0a12;
+  --color-surface: #14121f;
+  --color-surface-2: #1c1930;
+  --color-border: #2a2545;
+  --color-foreground: #ece9fb;
+  --color-muted: #8b86a8;
+  --color-primary: #ab9ff2;
+  --color-primary-strong: #7c6cf0;
+  --color-success: #34d399;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+/* Wallet adapter modal/button restyled to match the theme */
+.wallet-adapter-button {
+  background-color: var(--color-primary-strong) !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.875rem !important;
+  height: 2.5rem !important;
+  font-family: var(--font-sans) !important;
+}
+.wallet-adapter-button:hover {
+  background-color: var(--color-primary) !important;
+  color: #17142a !important;
+}
+.wallet-adapter-modal-wrapper {
+  background-color: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+}
