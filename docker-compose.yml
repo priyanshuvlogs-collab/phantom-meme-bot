@@ -1,0 +1,32 @@
+services:
+  # Strategy engine: TP/SL, dip-buy, rise-sell loop. Paper mode by default.
+  bot:
+    build:
+      context: .
+      target: bot
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Both services share one SQLite file on the ./data bind mount.
+      DATABASE_PATH: /data/bot.db
+      LOG_JSON: "true"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+
+  # Dashboard: http://localhost:3000
+  web:
+    build:
+      context: .
+      target: web
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_PATH: /data/bot.db
+    volumes:
+      - ./data:/data
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
