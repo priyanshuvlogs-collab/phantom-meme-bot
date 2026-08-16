@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# runtime data
+data/
+*.db
+*.db-journal
+*.sqlite
+
+# env & secrets — never commit these
+.env
+.env.*
+!.env.example
+*.keypair.json
+keypair.json
+wallet.json
+
+# logs
+logs/
+*.log
+
+# misc
+.DS_Store
+coverage/
