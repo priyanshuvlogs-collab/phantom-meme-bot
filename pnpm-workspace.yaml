@@ -1,0 +1,11 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+onlyBuiltDependencies:
+  - better-sqlite3
+  - esbuild
+  - bigint-buffer
+  - bufferutil
+  - utf-8-validate
+  - sharp

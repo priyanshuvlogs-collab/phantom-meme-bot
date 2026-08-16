@@ -1,0 +1,29 @@
+{
+  "name": "@phantom-meme-bot/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "pmb": "./dist/main.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "tsx src/main.ts",
+    "test": "echo 'no cli tests' "
+  },
+  "dependencies": {
+    "@phantom-meme-bot/core": "workspace:*",
+    "@phantom-meme-bot/strategies": "workspace:*",
+    "@solana/web3.js": "^1.98.4",
+    "chalk": "^5.6.0",
+    "cli-table3": "^0.6.5",
+    "commander": "^15.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3"
+  }
+}
